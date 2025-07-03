@@ -1,6 +1,6 @@
-# GameFi Smart Contract(Casino-Jackpot)
+# Casino Game Smart Contract(Casino-Jackpot)
 
-GamEFi Smart Contract: A decentralized casino(Jackpot) smart contract built on the Solana blockchain using the Anchor framework. This project implements a jackpot system with secure random number generation using ORAO Network's VRF (Verifiable Random Function).
+Casino Game Smart Contract: A decentralized casino(Jackpot) smart contract built on the Solana blockchain using the Anchor framework. This project implements a jackpot system with secure random number generation using ORAO Network's VRF (Verifiable Random Function).
 
 ## Contact
 
