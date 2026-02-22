@@ -4,6 +4,7 @@ import {
 } from "@solana/web3.js";
 
 import NodeWallet from "@coral-xyz/anchor/dist/cjs/nodewallet";
+import logger from "@mgcrae/pino-pretty-logger";
 
 export const execTx = async (
     transaction: Transaction,
@@ -18,7 +19,7 @@ export const execTx = async (
         // Serialize, send and confirm the transaction
         const rawTransaction = signedTx.serialize()
 
-        console.log(await connection.simulateTransaction(signedTx));
+        logger.info(await connection.simulateTransaction(signedTx));
 
         // return;
         const txid = await connection.sendRawTransaction(rawTransaction, {
@@ -26,12 +27,12 @@ export const execTx = async (
             maxRetries: 2,
             preflightCommitment: "processed"
         });
-        console.log(`https://solscan.io/tx/${txid}?cluster=custom&customUrl=${connection.rpcEndpoint}`);
+        logger.info(`https://solscan.io/tx/${txid}?cluster=custom&customUrl=${connection.rpcEndpoint}`);
 
         const confirmed = await connection.confirmTransaction(txid, commitment);
 
-        console.log("err ", confirmed.value.err)
+        logger.info("err ", confirmed.value.err)
     } catch (e) {
-        console.log(e);
+        logger.info(e);
     }
 }

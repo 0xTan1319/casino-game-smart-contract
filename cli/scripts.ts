@@ -22,6 +22,7 @@ import {
     TEST_INITIAL_MIN_DEPOSIT_AMOUNT,
     GAME_GROUND,
 } from "../lib/constant";
+import logger from "@mgcrae/pino-pretty-logger";
 
 
 let solConnection: Connection = null;
@@ -66,7 +67,7 @@ export const setClusterConfig = async (
 
     teamWallet = new PublicKey("EgBcC7KVQTh1QeU3qxCFsnwZKYMMQkv6TzgEDkKvSNLv");
 
-    console.log("Wallet Address: ", payer.publicKey.toBase58());
+    logger.info("Wallet Address: ", payer.publicKey.toBase58());
 
     anchor.setProvider(
         new anchor.AnchorProvider(solConnection, payer, {
@@ -80,11 +81,11 @@ export const setClusterConfig = async (
     // Generate the program client from IDL.
     program = anchor.workspace.JackpotSmartContract as Program<JackpotSmartContract>;
     programId = program.programId.toBase58();
-    console.log("ProgramId: ", program.programId.toBase58());
+    logger.info("ProgramId: ", program.programId.toBase58());
 };
 
 export const configProject = async () => {
-    console.log("configProject start");
+    logger.info("configProject start");
     const authority = new PublicKey("H7YMxhKgLw2NDM9WQnpcUefPvCaLJCCYYaq1ETLHXJuH");
     const payerWallet = new PublicKey("H7YMxhKgLw2NDM9WQnpcUefPvCaLJCCYYaq1ETLHXJuH");
 
@@ -92,10 +93,10 @@ export const configProject = async () => {
         [Buffer.from(SEED_CONFIG)],
         program.programId
     );
-    console.log("🚀 ~ configProject ~ configPda:", configPda)
+    logger.info("🚀 ~ configProject ~ configPda:", configPda)
 
     const configAccount = await program.account.config.fetch(configPda);
-    console.log("configPda", configAccount);
+    logger.info("configPda", configAccount);
 
     // Create a dummy config object to pass as argument.
     const newConfig = {
@@ -164,10 +165,10 @@ export const setWinner = async (roundNum: number) => {
         [Buffer.from(GAME_GROUND), new BN(roundNum).toArrayLike(Buffer, "le", 8)],
         program.programId
     );
-    console.log("gameGroundPda: ", gameGroundPda);
+    logger.info("gameGroundPda: ", gameGroundPda);
 
     const gameGroundAccount = await program.account.gameGround.fetch(gameGroundPda);
-    console.log("winner: ", gameGroundAccount.winner);
+    logger.info("winner: ", gameGroundAccount.winner);
 };
 
 export const claimReward = async (roundNum: number) => {

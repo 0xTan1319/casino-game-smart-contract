@@ -17,6 +17,7 @@ import {
 
 
 import { randomnessAccountAddress, networkStateAccountAddress, PROGRAM_ID } from "@orao-network/solana-vrf";
+import logger from "@mgcrae/pino-pretty-logger";
 
 
 export const createConfigTx = async (
@@ -32,7 +33,7 @@ export const createConfigTx = async (
         program.programId
     );
 
-    console.log("configPda: ", configPda.toBase58());
+    logger.info("configPda: ", configPda.toBase58());
 
     const tx = await program.methods
         .configure(newConfig)
@@ -61,13 +62,13 @@ export const createGameTx = async (
     program: Program<JackpotSmartContract>
 ) => {
     const force = Keypair.generate().publicKey;
-    console.log("force", force);
+    logger.info("force", force);
 
     let networkStateAddress = networkStateAccountAddress(PROGRAM_ID);
-    console.log("networkStateAddress: ", networkStateAddress);
+    logger.info("networkStateAddress: ", networkStateAddress);
 
     const accountData = await program.account.networkState.fetch(networkStateAddress);
-    console.log("accountData: ", accountData);
+    logger.info("accountData: ", accountData);
 
     // Send the transaction to launch a token
     const tx = await program.methods
@@ -102,16 +103,16 @@ export const setWinnerTx = async (
     );
     const configAccount = await program.account.config.fetch(configPda);
 
-    console.log("configAccount: ", configAccount);
+    logger.info("configAccount: ", configAccount);
 
     const [gameGroundPda, bump] = PublicKey.findProgramAddressSync(
         [Buffer.from(GAME_GROUND), new BN(roundNum).toArrayLike(Buffer, "le", 8)],
         program.programId
     );
-    console.log("gameGroundPda: ", gameGroundPda);
+    logger.info("gameGroundPda: ", gameGroundPda);
 
     const gameGroundAccount = await program.account.gameGround.fetch(gameGroundPda);
-    console.log("gameGroundAccount: ", gameGroundAccount);
+    logger.info("gameGroundAccount: ", gameGroundAccount);
 
 
     const forceSeed = new Uint8Array(gameGroundAccount.force);

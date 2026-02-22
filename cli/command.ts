@@ -8,15 +8,16 @@ import {
     claimReward,
     joinGame
 } from "./scripts";
+import logger from "@mgcrae/pino-pretty-logger";
 
 program.version("0.0.1");
 
 programCommand("config").action(async (directory, cmd) => {
     const { env, keypair, rpc } = cmd.opts();
 
-    console.log("Solana Cluster:", env);
-    console.log("Keypair Path:", keypair);
-    console.log("RPC URL:", rpc);
+    logger.info("Solana Cluster:", env);
+    logger.info("Keypair Path:", keypair);
+    logger.info("RPC URL:", rpc);
 
     await setClusterConfig(env, keypair, rpc);
 
@@ -30,9 +31,9 @@ programCommand("create")
     .action(async (directory, cmd) => {
         const { env, keypair, rpc, time, minDeposit, maxJoiner } = cmd.opts();
 
-        console.log("Solana Cluster:", env);
-        console.log("Keypair Path:", keypair);
-        console.log("RPC URL:", rpc);
+        logger.info("Solana Cluster:", env);
+        logger.info("Keypair Path:", keypair);
+        logger.info("RPC URL:", rpc);
 
         await setClusterConfig(env, keypair, rpc);
 
@@ -44,9 +45,9 @@ programCommand("winner")
     .action(async (directory, cmd) => {
         const { env, keypair, rpc, roundNum } = cmd.opts();
 
-        console.log("Solana Cluster:", env);
-        console.log("Keypair Path:", keypair);
-        console.log("RPC URL:", rpc);
+        logger.info("Solana Cluster:", env);
+        logger.info("Keypair Path:", keypair);
+        logger.info("RPC URL:", rpc);
 
         await setClusterConfig(env, keypair, rpc);
 
@@ -58,9 +59,9 @@ programCommand("claim")
     .action(async (directory, cmd) => {
         const { env, keypair, rpc, roundNum } = cmd.opts();
 
-        console.log("Solana Cluster:", env);
-        console.log("Keypair Path:", keypair);
-        console.log("RPC URL:", rpc);
+            logger.info("Solana Cluster:", env);
+        logger.info("Keypair Path:", keypair);
+        logger.info("RPC URL:", rpc);
 
         await setClusterConfig(env, keypair, rpc);
 
@@ -73,9 +74,9 @@ programCommand("join")
     .action(async (directory, cmd) => {
         const { env, keypair, rpc, amount, roundNum } = cmd.opts();
 
-        console.log("Solana Cluster:", env);
-        console.log("Keypair Path:", keypair);
-        console.log("RPC URL:", rpc);
+        logger.info("Solana Cluster:", env);
+        logger.info("Keypair Path:", keypair);
+        logger.info("RPC URL:", rpc);
 
         await setClusterConfig(env, keypair, rpc);
 

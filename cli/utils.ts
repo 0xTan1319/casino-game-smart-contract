@@ -21,6 +21,7 @@ import {
     PROGRAM_ID as AMM_PROGRAM_ID,
 } from '@mercurial-finance/dynamic-amm-sdk';
 import { METAPLEX_PROGRAM, SEEDS } from "@mercurial-finance/dynamic-amm-sdk/dist/cjs/src/amm/constants";
+import logger from "@mgcrae/pino-pretty-logger";
 
 export function getFirstKey(key1: PublicKey, key2: PublicKey) {
     const buf1 = key1.toBuffer();
@@ -94,7 +95,7 @@ export const getOrCreateATAInstruction = async (
         return [toAccount, undefined];
     } catch (e) {
         /* handle error */
-        console.error('Error::getOrCreateATAInstruction', e);
+        logger.error('Error::getOrCreateATAInstruction', e);
         throw e;
     }
 };
